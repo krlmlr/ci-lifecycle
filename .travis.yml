@@ -26,6 +26,22 @@ sudo: false
 dist: trusty
 
 jobs:
+  allow_failures:
+  - env:
+    - FAIL_BEFORE_INSTALL: true
+  - env:
+    - FAIL_INSTALL: true
+  - env:
+    - FAIL_BEFORE_SCRIPT: true
+  - env:
+    - FAIL_SCRIPT: true
+  - env:
+    - FAIL_SCRIPT: true
+    - FAIL_AFTER_FAILURE: true
+  - env:
+    - FAIL_BEFORE_DEPLOY: true
+  - env:
+    - FAIL_DEPLOY: true
   include:
   - env:
     - SUCCEED_ALL: true
