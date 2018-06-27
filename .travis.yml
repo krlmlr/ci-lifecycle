@@ -1,0 +1,54 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+# Default configuration for use with tic package
+# Usually you shouldn't need to change the first part of the file
+
+before_install: if [ "$FAIL_BEFORE_INSTALL" != "" ]; then false; fi
+install: if [ "$FAIL_INSTALL" != "" ]; then false; fi
+after_install: if [ "$FAIL_AFTER_INSTALL" != "" ]; then false; fi
+before_script: if [ "$FAIL_BEFORE_SCRIPT" != "" ]; then false; fi
+script: if [ "$FAIL_SCRIPT" != "" ]; then false; fi
+after_success: if [ "$FAIL_AFTER_SUCCESS" != "" ]; then false; fi
+after_failure: if [ "$FAIL_AFTER_FAILURE" != "" ]; then false; fi
+before_deploy: if [ "$FAIL_BEFORE_DEPLOY" != "" ]; then false; fi
+deploy:
+  provider: script
+  script: if [ "$FAIL_DEPLOY" != "" ]; then false; fi
+  on:
+    all_branches: true
+after_deploy: if [ "$FAIL_AFTER_DEPLOY" != "" ]; then false; fi
+after_script: if [ "$FAIL_AFTER_SCRIPT" != "" ]; then false; fi
+
+# Custom parts:
+
+# Header
+language: c
+sudo: false
+dist: trusty
+
+jobs:
+  include:
+  - env:
+    - SUCCEED_ALL: true
+  - env:
+    - FAIL_BEFORE_INSTALL: true
+  - env:
+    - FAIL_INSTALL: true
+  - env:
+    - FAIL_AFTER_INSTALL: true
+  - env:
+    - FAIL_BEFORE_SCRIPT: true
+  - env:
+    - FAIL_SCRIPT: true
+  - env:
+    - FAIL_AFTER_SUCCESS: true
+  - env:
+    - FAIL_SCRIPT: true
+    - FAIL_AFTER_FAILURE: true
+  - env:
+    - FAIL_BEFORE_DEPLOY: true
+  - env:
+    - FAIL_DEPLOY: true
+  - env:
+    - FAIL_AFTER_DEPLOY: true
+  - env:
+    - FAIL_AFTER_SCRIPT: true
